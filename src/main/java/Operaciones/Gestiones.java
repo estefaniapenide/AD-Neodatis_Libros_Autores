@@ -212,7 +212,7 @@ public class Gestiones {
         }
     }
 
-    //Menú 4 //Pendiente por el CRUD libroPerteneceAAutor(autor, libro)
+    //Menú 4 
     public static void modificarPrecioLibroDadoAutorYTitulo(Scanner input) {
 
         System.out.println("\tMODIFICAR EL PRECIO DE UN LIBRO DADO SU TÍTULO Y SU AUTOR");
@@ -245,6 +245,8 @@ public class Gestiones {
 
                     Crud.modificarPrecioLibroDadoNombreAutorYTituloLibro(nuevoPrecio, nombre, titulo);
 
+                    Crud.mostrarLibrosDeAutor(autor);
+
                 } else {
                     System.out.println("EL LIBRO " + titulo + " NO PERTENECE AL AUTOR " + nombre);
                 }
@@ -258,6 +260,56 @@ public class Gestiones {
     }
 
     //Menú 5
+    public static void borradoLibrosAutorCodigoLibro(Scanner input) {
+        System.out.println("BORRADO DE LIBROS DADO EL NOMBRE AUTOR Y EL CÓDIGO DEL LIBRO\n");
+        Cadenas.datosAutor();
+        Cadenas.nombre();
+        String nombre = ControlData.leerString(input).toUpperCase();
+
+        Autor autor = Crud.buscarAutorPorNombre(nombre);
+        if (autor != null) {
+
+            System.out.println("\nLIBROS DE " + nombre);
+            Crud.mostrarLibrosDeAutorConCodigo(autor);
+
+            Cadenas.datosLibro();
+            Cadenas.codigo();
+            int cod = ControlData.leerInt(input);
+            Libro libro = Crud.buscarLibroPorCodigo(cod);
+            if (libro != null) {
+
+                if (Crud.libroPerteneceAAutor(autor, libro)) {
+
+                    Crud.imprimirLibroPorCodigo(cod);
+
+                    byte op = 2;
+                    do {
+                        Cadenas.confirmarBorradoLibro();
+                        op = ControlData.leerByte(input);
+                        switch (op) {
+                            case 1:
+                                Crud.borrarLibro(libro, autor);
+                                Cadenas.libroBorrado();
+                                break;
+                            case 2:
+                                Cadenas.libroNoBorrado();
+                                break;
+                            default:
+                                Cadenas.defaultmensaje();
+                                break;
+                        }
+                    } while (op != 1 && op != 2);
+                } else {
+                    System.out.println("EL LIBRO CON CÓDIGO" + cod + " NO PERTENECE AL AUTOR " + nombre);
+                }
+            } else {
+                System.out.println("EL LIBRO CON CÓDIGO " + cod + " NO EXISTE");
+            }
+        } else {
+            System.out.println("EL AUTOR " + nombre + " NO EXISTE");
+        }
+    }
+
     //Menú 6
     public static void autoresNacionalidadItaliana(Scanner input) {
         System.out.println("AUTORES DE NACIONALIDAD ITALIANA\n");
@@ -265,6 +317,35 @@ public class Gestiones {
     }
 
     //Menú 7
+    public static void librosAutorEntreDosFechas(Scanner input) {
+        System.out.println("LIBROS DE UN AUTOR ENTRE DOS FECHAS\n");
+        Cadenas.datosAutor();
+        Cadenas.nombre();
+        String nombre = ControlData.leerString(input);
+        Autor autor = Crud.buscarAutorPorNombre(nombre);
+        if (autor != null) {
+            Cadenas.fechaInicio();
+            String fechaInicio = ControlData.leerFecha(input);
+            Date dateInicio = Date.valueOf(fechaInicio);
+
+            Cadenas.fechaFin();
+            String fechaFin = ControlData.leerFecha(input);
+            Date dateFin = Date.valueOf(fechaFin);
+
+            if (dateInicio.before(dateFin)) {
+                System.out.println("\nLIBROS DE " + nombre + " ENTRE " + fechaInicio + " Y " + fechaFin);
+                Crud.librosAutorEntreDosFechas(autor, dateInicio, dateFin);
+
+            } else {
+                System.out.println("LA FECHA DE INICIO DEBE SER ANTERIOR A LA FECHA DE FIN");
+            }
+
+        } else {
+            System.out.println("EL AUTOR " + nombre + " NO EXISTE");
+        }
+
+    }
+
     //Menú 8
     public static void autoresNacionalidadEspanolaMenoresDe60(Scanner input) {
         System.out.println("AUTORES DE NACIONALIDAD ESPAÑOLA MENORES DE 60 AÑOS\n");
@@ -287,12 +368,28 @@ public class Gestiones {
         Autor autor = Crud.buscarAutorPorNombre(nombre);
 
         if (autor != null) {
-            
+
             Crud.mostrarLibrosDeAutor(autor);
 
         } else {
             System.out.println("EL AUTOR " + nombre + " NO EXISTE");
         }
+    }
+
+    //Menú 11
+    public static void dadoLibroBsucarAutorYOtrosDatosLibro(Scanner input) {
+        System.out.println("INTRODUCINEDO EL TÍTULO DE UN LIBRO OBTENER LOS DATOS DEL LIBRO Y SU AUTOR");
+        Cadenas.datosLibro();
+        Cadenas.titulo();
+        String titulo = ControlData.leerString(input);
+        Libro libro = Crud.buscarLibroPorTitulo(titulo);
+        if (libro != null) {
+            System.out.println(libro);
+            
+        } else {
+            System.out.println("EL LIBRO " + titulo + " NO EXISTE");
+        }
+
     }
 
 }

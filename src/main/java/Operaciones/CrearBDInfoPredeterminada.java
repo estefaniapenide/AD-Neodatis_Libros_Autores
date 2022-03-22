@@ -23,7 +23,7 @@ public class CrearBDInfoPredeterminada {
         
         Autor autor1 = new Autor("53191630J","AUTOR1","CALLE SINNOMBRE Nº1",32,"ESPAÑOLA");
         Libro libro1 = new Libro(1,"SIN TÍTULO 1","AVENTURAS",21.99f,new Date(2020-1900, 12-1, 13));
-        Libro libro3 = new Libro(3,"SIN TÍTULO 3","AVENTURAS",21.99f,new Date(2020-1900, 12-1, 13));
+        Libro libro3 = new Libro(3,"SIN TÍTULO 3","AVENTURAS",21.99f,new Date(2022-1900, 12-1, 13));
         autor1.getLibros().add(libro1);
         autor1.getLibros().add(libro3);
         

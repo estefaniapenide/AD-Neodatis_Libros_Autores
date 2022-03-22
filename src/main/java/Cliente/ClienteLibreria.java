@@ -23,63 +23,52 @@ public class ClienteLibreria {
     public static void main(String[] args) {
 
         Scanner input = new Scanner(System.in);
-        ODB odb = null;
-        try {
-            odb = Conexion.getOdb();
-            Cadenas.conexionServidor();
 
-            byte op = 12;
-            do {
-                Cadenas.menu();
-                op = ControlData.leerByte(input);
-                switch (op) {
-                    case 1:
-                        Gestiones.altaAutorLibros(input);
-                        break;
-                    case 2:
-                        Gestiones.addLibroAAutor(input);
-                        break;
-                    case 3:
-                        Gestiones.modificarDireccionAutor(input);
-                        break;
-                    case 4:
-                        Gestiones.modificarPrecioLibroDadoAutorYTitulo(input);
-                        break;
-                    case 5:
-                        break;
-                    case 6:
-                        Gestiones.autoresNacionalidadItaliana(input);
-                        break;
-                    case 7:
-                        break;
-                    case 8:
-                        Gestiones.autoresNacionalidadEspanolaMenoresDe60(input);
-                        break;
-                    case 9:
-                        Gestiones.numeroAutoresPorNacionalidad(input);
-                        break;
-                    case 10:
-                        Gestiones.mostrarLibrosAutor(input);
-                        break;
-                    case 11:
-                        break;
-                    case 12:
-                        Cadenas.fin();
-                        break;
-                    default:
-                        Cadenas.defaultmensaje();
-                        break;
-                }
-            } while (op != 12);
-
-        } catch (org.neodatis.odb.ODBRuntimeException E) {
-            E.printStackTrace();
-            Cadenas.errorConexionServidor();
-        } finally {
-            if (odb != null) {
-                odb.close();
+        byte op = 12;
+        do {
+            Cadenas.menu();
+            op = ControlData.leerByte(input);
+            switch (op) {
+                case 1:
+                    Gestiones.altaAutorLibros(input);
+                    break;
+                case 2:
+                    Gestiones.addLibroAAutor(input);
+                    break;
+                case 3:
+                    Gestiones.modificarDireccionAutor(input);
+                    break;
+                case 4:
+                    Gestiones.modificarPrecioLibroDadoAutorYTitulo(input);
+                    break;
+                case 5:
+                    Gestiones.borradoLibrosAutorCodigoLibro(input);
+                    break;
+                case 6:
+                    Gestiones.autoresNacionalidadItaliana(input);
+                    break;
+                case 7:
+                    Gestiones.librosAutorEntreDosFechas(input);
+                    break;
+                case 8:
+                    Gestiones.autoresNacionalidadEspanolaMenoresDe60(input);
+                    break;
+                case 9:
+                    Gestiones.numeroAutoresPorNacionalidad(input);
+                    break;
+                case 10:
+                    Gestiones.mostrarLibrosAutor(input);
+                    break;
+                case 11:
+                    break;
+                case 12:
+                    Cadenas.fin();
+                    break;
+                default:
+                    Cadenas.defaultmensaje();
+                    break;
             }
-        }
+        } while (op != 12);
 
     }
 

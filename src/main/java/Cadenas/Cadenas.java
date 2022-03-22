@@ -23,7 +23,7 @@ public class Cadenas {
                 + "8.- Visualiza todos los autores cuya nacionalidad sea ESPAÑOLA y su edad sea < 60 años.\n"
                 + "9.- Visualiza por cada nación el número de autores.\n"
                 + "10.- Introduciendo el nombre de un autor, se visualizan todos sus libros.\n"
-                + "11.- Consultas.'Introduciendo el título de un libro visualice los datos del libro autor'.\n\n"
+                + "11.- Consultas.'Introduciendo el título de un libro visualice los datos del libro y autor'.\n\n"
                 + "12.- FIN\n"
                 + "--------------------------------------------------------------------------------------------------------------------");
     }
@@ -101,7 +101,7 @@ public class Cadenas {
     public static void precio() {
         System.out.println("PRECIO:");
     }
-    
+
     public static void nuevoPrecio() {
         System.out.println("NUEVO PRECIO:");
     }
@@ -112,5 +112,27 @@ public class Cadenas {
 
     public static void libroregistrado() {
         System.out.println("EL LIBRO HA SIDO REGISTRADO CORRECTAMENTE");
+    }
+
+    public static void confirmarBorradoLibro() {
+        System.out.println("CONFIRMAR BORRADO LIBRO:\n"
+                + "1.-SI\n"
+                + "2.-NO\n");
+    }
+
+    public static void libroNoBorrado() {
+        System.out.println("LIBRO NO BORRADO");
+    }
+
+    public static void libroBorrado() {
+        System.out.println("LIBRO BORRADO");
+    }
+
+    public static void fechaInicio() {
+        System.out.println("FECHA DE INICIO(aaaa-mm-dd):");
+    }
+    
+     public static void fechaFin() {
+        System.out.println("FECHA DE FIN(aaaa-mm-dd):");
     }
 }
