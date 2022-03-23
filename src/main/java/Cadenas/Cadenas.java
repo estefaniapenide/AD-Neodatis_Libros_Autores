@@ -12,7 +12,7 @@ public class Cadenas {
 
     //MENÚS
     public static void menu() {
-        System.out.println("-------------------------------------------------------------------------------------------------------------------\n"
+        System.out.println("------------------------------------------------------------------------------------------------------------\n"
                 + "\t\tMENÚ LIBRERÍA\n\n"
                 + "1.- Altas de autor con todos sus libros.\n"
                 + "2.- Añadir un libro nuevo a un autor ya existente.\n"
@@ -26,7 +26,7 @@ public class Cadenas {
                 + "10.- Introduciendo el nombre de un autor, se visualizan todos sus libros.\n"
                 + "11.- Consultas.'Introduciendo el título de un libro visualice los datos del libro y autor'.\n\n"
                 + "12.- FIN\n"
-                + "--------------------------------------------------------------------------------------------------------------------");
+                + "-------------------------------------------------------------------------------------------------------------");
     }
 
     public static void addLibros() {

@@ -235,10 +235,11 @@ public abstract class Crud {
             IQuery query = new CriteriaQuery((Autor.class), Where.equal("nombre", autor.getNombre()));
             Objects aut = odb.getObjects(query);
             Autor a = (Autor) aut.getFirst();
-            System.out.println("TÍTULO\t\tPRECIO");
+            System.out.printf("%-35s %-10s %n", "TÍTULO", "PRECIO");
+            //System.out.println("TÍTULO\t\tPRECIO");
             for (Libro libro : a.getLibros()) {
-                System.out.println(libro.getTitulo() + "\t"
-                        + libro.getPrecio());
+                System.out.printf("%-35s %-10s %n", libro.getTitulo(), libro.getPrecio());
+                //System.out.println(libro.getTitulo() + "\t"+ libro.getPrecio());
             }
 
         } catch (org.neodatis.odb.ODBRuntimeException E) {
@@ -261,11 +262,11 @@ public abstract class Crud {
             IQuery query = new CriteriaQuery((Autor.class), Where.equal("nombre", autor.getNombre()));
             Objects aut = odb.getObjects(query);
             Autor a = (Autor) aut.getFirst();
-            System.out.println("CÓDIGO\t\tTÍTULO\t\tPRECIO");
+            System.out.printf("%-10s %-35s %-10s %n", "CÓDIGO", "TÍTULO", "PRECIO");
+            //System.out.println("CÓDIGO\t\tTÍTULO\t\tPRECIO");
             for (Libro libro : a.getLibros()) {
-                System.out.println(libro.getCod() + "\t\t"
-                        + libro.getTitulo() + "\t"
-                        + libro.getPrecio());
+                //System.out.println(libro.getCod() + "\t\t"+ libro.getTitulo() + "\t"+ libro.getPrecio());
+                System.out.printf("%-10s %-35s %-10s %n", libro.getCod(), libro.getTitulo(), libro.getPrecio());
             }
 
         } catch (org.neodatis.odb.ODBRuntimeException E) {
@@ -376,14 +377,16 @@ public abstract class Crud {
             odb = ODBFactory.openClient("localhost", 8000, "libreria");
 
             Values valores = odb.getValues(new ValuesCriteriaQuery(Autor.class, Where.equal("nacionalidad", nacionalidad)).field("nombre").field("dni").field("direccion").field("edad").field("nacionalidad"));
-            System.out.println("NOMBRE\t\tDNI\t\tDIRECCIÓN\t\t\tEDAD\t\tNACIONALIDAD");
+            System.out.printf("%-20s %-15s %-10s %-20s %-30s %n", "NOMBRE", "DNI", "EDAD", "NACIONALODAD", "DIRECCIÓN");
+//           System.out.println("NOMBRE\t\tDNI\t\tDIRECCIÓN\t\t\tEDAD\t\tNACIONALIDAD");
             while (valores.hasNext()) {
                 ObjectValues objectValues = (ObjectValues) valores.next();
-                System.out.println(objectValues.getByAlias("nombre") + "\t\t"
-                        + objectValues.getByAlias("dni") + "\t"
-                        + objectValues.getByAlias("direccion") + "\t\t"
-                        + objectValues.getByAlias("edad") + "\t\t"
-                        + objectValues.getByAlias("nacionalidad"));
+                System.out.printf("%-20s %-15s %-10s %-20s %-30s %n", objectValues.getByAlias("nombre"), objectValues.getByAlias("dni"), objectValues.getByAlias("edad"), objectValues.getByAlias("nacionalidad"), objectValues.getByAlias("direccion"));
+//                System.out.println(objectValues.getByAlias("nombre") + "\t\t"
+//                        + objectValues.getByAlias("dni") + "\t"
+//                        + objectValues.getByAlias("direccion") + "\t\t"
+//                        + objectValues.getByAlias("edad") + "\t\t"
+//                        + objectValues.getByAlias("nacionalidad"));
             }
 
         } catch (org.neodatis.odb.ODBRuntimeException E) {
@@ -494,11 +497,12 @@ public abstract class Crud {
             IQuery query = new CriteriaQuery((Autor.class), Where.equal("nombre", autor.getNombre()));
             Objects aut = odb.getObjects(query);
             Autor a = (Autor) aut.getFirst();
-            System.out.println("TÍTULO\t\tFECHA PUBLICACIÓN");
+            System.out.printf("%-30s %-20s %n", "TÍTULO", "FECHA PUBLICACIÓN");
+            //System.out.println("TÍTULO\t\tFECHA PUBLICACIÓN");
             for (Libro lib : a.getLibros()) {
                 if (lib.getFechaPublicacion().before(fechaFin) && lib.getFechaPublicacion().after(fechaInicio)) {
-                    System.out.println(lib.getTitulo() + "\t"
-                            + lib.getFechaPublicacion());
+                    //System.out.println(lib.getTitulo() + "\t" + lib.getFechaPublicacion());
+                    System.out.printf("%-30s %-20s %n", lib.getTitulo(), lib.getFechaPublicacion());
                 }
             }
         } catch (org.neodatis.odb.ODBRuntimeException E) {
