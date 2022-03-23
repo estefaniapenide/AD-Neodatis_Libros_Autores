@@ -6,10 +6,9 @@
 package Cliente;
 
 import Cadenas.Cadenas;
-import Operaciones.Gestiones;
-import controldata.ControlData;
+import Cliente.operaciones.Gestiones;
+import Cliente.controldata.ControlData;
 import java.util.Scanner;
-import org.neodatis.odb.ODB;
 
 /**
  *
@@ -60,6 +59,7 @@ public class ClienteLibreria {
                     Gestiones.mostrarLibrosAutor(input);
                     break;
                 case 11:
+                    Gestiones.dadoLibroBsucarAutorYOtrosDatosLibro(input);
                     break;
                 case 12:
                     Cadenas.fin();

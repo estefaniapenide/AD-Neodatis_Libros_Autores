@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Operaciones;
+package Cliente.operaciones;
 
 import java.util.Scanner;
 import Cadenas.Cadenas;
 import POO.Autor;
 import POO.Libro;
-import controldata.ControlData;
+import Cliente.controldata.ControlData;
 import java.sql.Date;
 
 /**
@@ -22,7 +22,7 @@ public class Gestiones {
 
     public static void altaAutorLibros(Scanner input) {
 
-        System.out.println("\tALTA DE AUTOR CON TODOS SUS LIBROS");
+        Cadenas.m1AltaAutorLibros();
 
         Autor autor = null;
 
@@ -33,7 +33,7 @@ public class Gestiones {
             if (!autorYaGuardado) {
                 Crud.storeAutor(autor);
             }
-            System.out.println("AUTOR Y LIBROS GUARDADOS");
+            Cadenas.autorLibrosGuardados();
         }
     }
 
@@ -43,14 +43,13 @@ public class Gestiones {
         autorYaGuardado = false;
 
         Cadenas.datosAutor();
-
         Cadenas.dni();
         String dni = ControlData.leerDni(input);
 
         autor = Crud.buscarAutorPorDni(dni);
 
         if (autor != null) {
-            System.out.println("EL AUTOR CON DNI " + dni + " YA ESTÁ DADO DE ALTA");
+            Cadenas.elAutorDniYaDadoAlta(dni);
             Crud.imprimirAutorPorDni(dni);
             autorYaGuardado = true;
         } else {
@@ -84,7 +83,6 @@ public class Gestiones {
                     nuevoLibro(input, autor);
                     break;
                 case 2:
-                    //System.out.println("NO SE AÑADEN MÁS LIBROS");
                     break;
                 default:
                     Cadenas.defaultmensaje();
@@ -99,17 +97,15 @@ public class Gestiones {
         Libro libro = null;
 
         Cadenas.datosLibro();
-
         Cadenas.codigo();
         int cod = ControlData.leerInt(input);
 
         libro = Crud.buscarLibroPorCodigo(cod);
 
         if (libro != null) {
-            System.out.println("EL LIBRO CON CÓDIGO " + cod + " YA ESTÁ DADO DE ALTA");
+            Cadenas.elLibroCodYaDadoAlta(cod);
             Crud.imprimirLibroPorCodigo(cod);
         } else {
-
             Cadenas.titulo();
             String titulo = ControlData.leerString(input).toUpperCase();
 
@@ -141,21 +137,24 @@ public class Gestiones {
     //Menu 2
     public static void addLibroAAutor(Scanner input) {
 
-        System.out.println("\tAÑADIR LIBRO A AUTOR YA EXISTENTE");
+        Cadenas.m2AddLibroAutor();
+
         Cadenas.datosAutor();
         Cadenas.dni();
         String dni = ControlData.leerDni(input);
 
         Autor autor = Crud.buscarAutorPorDni(dni);
+
         if (autor != null) {
             Crud.imprimirAutorPorDni(dni);
+
             Cadenas.datosLibro();
             Cadenas.codigo();
             int cod = ControlData.leerInt(input);
+
             Libro libro = Crud.buscarLibroPorCodigo(cod);
 
             if (libro == null) {
-
                 Cadenas.titulo();
                 String titulo = ControlData.leerString(input).toUpperCase();
 
@@ -176,18 +175,19 @@ public class Gestiones {
                 Cadenas.libroregistrado();
 
             } else {
-                System.out.println("EL LIBRO CON CÓDIGO " + cod + " YA EXISTE");
+                Cadenas.elLibroCodYaExiste(cod);
                 Crud.imprimirLibroPorCodigo(cod);
             }
         } else {
-            System.out.println("EL AUTOR CON DNI " + dni + " NO EXISTE");
+            Cadenas.elAutorDniNoExiste(dni);
         }
     }
 
     //Menú 3
     public static void modificarDireccionAutor(Scanner input) {
 
-        System.out.println("\tMODIFICAR LA DIRECCIÓN DE UN AUTOR");
+        Cadenas.m3ModificarDireccionAutor();
+
         Cadenas.datosAutor();
         Cadenas.dni();
         String dni = ControlData.leerDni(input);
@@ -203,19 +203,18 @@ public class Gestiones {
 
             Crud.modificarDireccionAutor(nuevaDireccion, autor);
 
-            System.out.println("LA DIRECCIÓN HA SIDO MODIFICADA");
-
+            Cadenas.direccionModificada();
             Crud.imprimirAutorPorDni(dni);
 
         } else {
-            System.out.println("EL AUTOR CON DNI " + dni + " NO EXISTE");
+            Cadenas.elAutorDniNoExiste(dni);
         }
     }
 
     //Menú 4 
     public static void modificarPrecioLibroDadoAutorYTitulo(Scanner input) {
 
-        System.out.println("\tMODIFICAR EL PRECIO DE UN LIBRO DADO SU TÍTULO Y SU AUTOR");
+        Cadenas.m4ModificarPrecioLibro();
 
         Cadenas.datosAutor();
         Cadenas.nombre();
@@ -225,7 +224,7 @@ public class Gestiones {
 
         if (autor != null) {
 
-            System.out.println("\nLIBROS DE " + nombre);
+            Cadenas.librosDe(nombre);
             Crud.mostrarLibrosDeAutor(autor);
 
             Cadenas.datosLibro();
@@ -244,38 +243,44 @@ public class Gestiones {
                     float nuevoPrecio = ControlData.leerFloat(input);
 
                     Crud.modificarPrecioLibroDadoNombreAutorYTituloLibro(nuevoPrecio, nombre, titulo);
-
+                    
+                    Cadenas.librosDe(nombre);
                     Crud.mostrarLibrosDeAutor(autor);
 
                 } else {
-                    System.out.println("EL LIBRO " + titulo + " NO PERTENECE AL AUTOR " + nombre);
+                    Cadenas.elLibroNoPerteneceAAutor(titulo, nombre);
                 }
             } else {
-                System.out.println("EL LIBRO " + titulo + " NO EXISTE");
+                Cadenas.elLibroNoExiste(titulo);
             }
         } else {
-            System.out.println("EL AUTOR " + nombre + " NO EXISTE");
+            Cadenas.elAutorNoExiste(nombre);
         }
 
     }
 
     //Menú 5
     public static void borradoLibrosAutorCodigoLibro(Scanner input) {
-        System.out.println("BORRADO DE LIBROS DADO EL NOMBRE AUTOR Y EL CÓDIGO DEL LIBRO\n");
+
+        Cadenas.m5BorrarLibro();
+
         Cadenas.datosAutor();
         Cadenas.nombre();
         String nombre = ControlData.leerString(input).toUpperCase();
 
         Autor autor = Crud.buscarAutorPorNombre(nombre);
+
         if (autor != null) {
 
-            System.out.println("\nLIBROS DE " + nombre);
+            Cadenas.librosDe(nombre);
             Crud.mostrarLibrosDeAutorConCodigo(autor);
 
             Cadenas.datosLibro();
             Cadenas.codigo();
             int cod = ControlData.leerInt(input);
+
             Libro libro = Crud.buscarLibroPorCodigo(cod);
+
             if (libro != null) {
 
                 if (Crud.libroPerteneceAAutor(autor, libro)) {
@@ -300,29 +305,35 @@ public class Gestiones {
                         }
                     } while (op != 1 && op != 2);
                 } else {
-                    System.out.println("EL LIBRO CON CÓDIGO" + cod + " NO PERTENECE AL AUTOR " + nombre);
+                    Cadenas.elLibroCodNoPerteneceAAutor(cod, nombre);
                 }
             } else {
-                System.out.println("EL LIBRO CON CÓDIGO " + cod + " NO EXISTE");
+                Cadenas.elLibroCodNoExiste(cod);
             }
         } else {
-            System.out.println("EL AUTOR " + nombre + " NO EXISTE");
+            Cadenas.elAutorNoExiste(nombre);
         }
     }
 
     //Menú 6
     public static void autoresNacionalidadItaliana(Scanner input) {
-        System.out.println("AUTORES DE NACIONALIDAD ITALIANA\n");
+
+        Cadenas.m6AutoresNacionalidadItalina();
+
         Crud.autoresNacionalidadDeterminada("ITALIANA");
     }
 
     //Menú 7
     public static void librosAutorEntreDosFechas(Scanner input) {
-        System.out.println("LIBROS DE UN AUTOR ENTRE DOS FECHAS\n");
+
+        Cadenas.m7LibrosAutorEntreDosFechas();
+
         Cadenas.datosAutor();
         Cadenas.nombre();
-        String nombre = ControlData.leerString(input);
+        String nombre = ControlData.leerString(input).toUpperCase();
+
         Autor autor = Crud.buscarAutorPorNombre(nombre);
+
         if (autor != null) {
             Cadenas.fechaInicio();
             String fechaInicio = ControlData.leerFecha(input);
@@ -333,34 +344,39 @@ public class Gestiones {
             Date dateFin = Date.valueOf(fechaFin);
 
             if (dateInicio.before(dateFin)) {
-                System.out.println("\nLIBROS DE " + nombre + " ENTRE " + fechaInicio + " Y " + fechaFin);
+                Cadenas.librosDeEntreFechas(nombre, fechaInicio, fechaFin);
                 Crud.librosAutorEntreDosFechas(autor, dateInicio, dateFin);
 
             } else {
-                System.out.println("LA FECHA DE INICIO DEBE SER ANTERIOR A LA FECHA DE FIN");
+                Cadenas.laFechaDeInicioDeberSerAnteriorAFin();
             }
-
         } else {
-            System.out.println("EL AUTOR " + nombre + " NO EXISTE");
+            Cadenas.elAutorNoExiste(nombre);
         }
 
     }
 
     //Menú 8
     public static void autoresNacionalidadEspanolaMenoresDe60(Scanner input) {
-        System.out.println("AUTORES DE NACIONALIDAD ESPAÑOLA MENORES DE 60 AÑOS\n");
+
+        Cadenas.m8AutoresEspanolesMenores60();
+
         Crud.autoresNacionalidadDeterminadaMenoresDeCiertaEdad("ESPAÑOLA", 60);
     }
 
     //Menú 9
     public static void numeroAutoresPorNacionalidad(Scanner input) {
-        System.out.println("NÚMERO DE AUTORES POR NACIONALIDAD\n");
+
+        Cadenas.m9NumeroAutoresNacionalidad();
+
         Crud.numeroAutoresPorNacionalidad();
     }
 
     //Menú 10
     public static void mostrarLibrosAutor(Scanner input) {
-        System.out.println("LIBROS DE UN AUTOR DETERMINADO");
+
+        Cadenas.m10LibrosAutor();
+
         Cadenas.datosAutor();
         Cadenas.nombre();
         String nombre = ControlData.leerString(input).toUpperCase();
@@ -369,25 +385,31 @@ public class Gestiones {
 
         if (autor != null) {
 
+            Cadenas.librosDe(nombre);
             Crud.mostrarLibrosDeAutor(autor);
 
         } else {
-            System.out.println("EL AUTOR " + nombre + " NO EXISTE");
+            Cadenas.elAutorNoExiste(nombre);
         }
     }
 
     //Menú 11
     public static void dadoLibroBsucarAutorYOtrosDatosLibro(Scanner input) {
-        System.out.println("INTRODUCINEDO EL TÍTULO DE UN LIBRO OBTENER LOS DATOS DEL LIBRO Y SU AUTOR");
+
+        Cadenas.m11TituloLibroDatosLibroYAutor();
+
         Cadenas.datosLibro();
         Cadenas.titulo();
-        String titulo = ControlData.leerString(input);
+        String titulo = ControlData.leerString(input).toUpperCase();
+
         Libro libro = Crud.buscarLibroPorTitulo(titulo);
+
         if (libro != null) {
             System.out.println(libro);
-            
+            Crud.imprimirAutorDadoLibro(libro);
+
         } else {
-            System.out.println("EL LIBRO " + titulo + " NO EXISTE");
+            Cadenas.elLibroNoExiste(titulo);
         }
 
     }

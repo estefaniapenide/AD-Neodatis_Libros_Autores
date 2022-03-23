@@ -12,10 +12,14 @@ import org.neodatis.odb.ODBFactory;
  * @author Estefania
  */
 public class Conexion {
-    
-    public static ODB odb = null;
 
-    public static ODB getOdb() {
+    public static ODB odb;
+
+    private Conexion(ODB odb) {
+        this.odb = odb;
+    }
+
+    public static ODB getConexion() {
 
         if (odb == null) {
 
@@ -23,5 +27,5 @@ public class Conexion {
         }
         return odb;
     }
-    
+
 }
